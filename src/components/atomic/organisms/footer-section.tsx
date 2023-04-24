@@ -1,5 +1,6 @@
 import { styled } from "@/stitches.config";
 import { RiFacebookLine, RiInstagramLine, RiTwitterLine } from "react-icons/ri";
+
 import { IconWrapper, Space, Typography } from "../atoms";
 import { PRODUCT_CATEGORIES } from "@/constants/product.constant";
 
@@ -137,6 +138,8 @@ const FooterWrapper = styled("footer", {
 	display: "flex",
 	flexWrap: "wrap",
 	gap: "4em",
+
+	mb: "4rem",
 
 	width: "100%",
 

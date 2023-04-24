@@ -1,8 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 import { Helmet } from "react-helmet";
 
-import { Container } from "../atomic/atoms";
-import { Navbar } from "../atomic/molecules";
+import { Container, Navbar, FooterSection } from "@/components";
 
 interface MainLayoutProps {
 	title?: string;
@@ -31,6 +30,8 @@ export const MainLayout: FC<PropsWithChildren<MainLayoutProps>> = ({
 			<Navbar />
 
 			{children}
+
+			<FooterSection />
 		</Container>
 	);
 };

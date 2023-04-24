@@ -258,8 +258,6 @@ function App() {
 				</SectionWrapper>
 
 				<NewsletterInputSection />
-
-				<FooterSection />
 			</Space>
 		</MainLayout>
 	);
