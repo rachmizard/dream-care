@@ -9,6 +9,7 @@ export type ProductCategory =
 	| "featured";
 
 export interface ProductInterface {
+	id: number;
 	name: string;
 	price: number;
 	description: string;

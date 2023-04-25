@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { Badge, Button, Space, Typography } from "@/components/atomic/atoms";
 
@@ -6,12 +6,27 @@ import { toUSDCurrency } from "@/utils";
 import { ProductInterface } from "@/interfaces/product.interface";
 import { styled } from "@/stitches.config";
 
-interface ProductCardProps extends ProductInterface {}
+interface ProductCardProps {
+	onAddToCart?: (product: ProductInterface) => void;
+	product: ProductInterface;
+}
 
 export const ProductCard: FC<ProductCardProps> = (props) => {
-	const { name, image, category, price, discount = 0 } = props;
+	const { product, onAddToCart } = props;
+	const [isAddedToCart, setIsAddedToCart] = useState(false);
+
+	const { category, discount = 0, image, name, price } = product;
 
 	const isDiscounted = discount !== 0;
+
+	useEffect(() => {
+		if (isAddedToCart) {
+			const timer = setTimeout(() => {
+				setIsAddedToCart(false);
+			}, 2000);
+			return () => clearTimeout(timer);
+		}
+	}, [isAddedToCart]);
 
 	return (
 		<ProductCardWrapper>
@@ -30,8 +45,15 @@ export const ProductCard: FC<ProductCardProps> = (props) => {
 					data-add-to-cart-btn
 					rounded
 					size="lg"
-					color="primary">
-					Add To Cart
+					color="primary"
+					loading={isAddedToCart}
+					onClick={() => {
+						if (onAddToCart) {
+							setIsAddedToCart(true);
+							onAddToCart(product);
+						}
+					}}>
+					{isAddedToCart ? "Added" : "Add to Cart"}
 				</ProductCardActionButton>
 			</ProductCardView>
 

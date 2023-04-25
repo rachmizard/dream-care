@@ -27,13 +27,16 @@ interface CartDropdownProps {
 
 export const CartDropdown: FC<CartDropdownProps> = (props) => {
 	const { carts = [], renderItem, onRemoveCart } = props;
+	const isCartEmpty = carts.length === 0;
+
+	const viewPortHeight = isCartEmpty ? 0 : 300;
 
 	return (
 		<CartDropdownContainer>
-			<ScrollArea viewPortHeight={225}>
+			<ScrollArea viewPortHeight={viewPortHeight}>
 				<CartDropdownProductList>
 					{carts.map((cart, index) => (
-						<CartDropdownProductListItem key={cart.name}>
+						<CartDropdownProductListItem key={index}>
 							{renderItem?.(cart, index)}
 
 							<Button

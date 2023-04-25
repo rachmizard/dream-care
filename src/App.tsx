@@ -13,21 +13,22 @@ import {
 } from "react-icons/ri";
 
 import {
+	AboutCard,
 	Box,
 	Button,
-	Flex,
-	Space,
-	Typography,
-	AboutCard,
 	CategoryIcon,
+	Flex,
 	HeroSection,
 	MainLayout,
 	NewsletterInputSection,
 	ProductCard,
 	SectionWrapper,
+	Space,
+	Typography,
 } from "./components";
 
 import { ImagesConstant } from "./constants/images.constant";
+import { useAddCart } from "./hooks";
 import { ProductInterface } from "./interfaces/product.interface";
 
 const categories = [
@@ -67,6 +68,7 @@ const categories = [
 
 const PRODUCT_LIST_CONSTANT: ProductInterface[] = [
 	{
+		id: 1,
 		name: "Sun Screen Thaipusam",
 		image: ImagesConstant.skinCareYellow1,
 		category: "suncare",
@@ -75,6 +77,7 @@ const PRODUCT_LIST_CONSTANT: ProductInterface[] = [
 		discount: 80,
 	},
 	{
+		id: 2,
 		name: "Night Eye Cream",
 		image: ImagesConstant.skinCareYellow2,
 		category: "eyecare",
@@ -83,6 +86,7 @@ const PRODUCT_LIST_CONSTANT: ProductInterface[] = [
 		discount: 10,
 	},
 	{
+		id: 3,
 		name: "Acne Skin Gel",
 		image: ImagesConstant.skinCareYellow3,
 		category: "treatments",
@@ -91,6 +95,7 @@ const PRODUCT_LIST_CONSTANT: ProductInterface[] = [
 		discount: 0,
 	},
 	{
+		id: 4,
 		name: "Anti Dry Skin",
 		image: ImagesConstant.skinCareBlackWhite3,
 		category: "moisturizers",
@@ -99,6 +104,7 @@ const PRODUCT_LIST_CONSTANT: ProductInterface[] = [
 		discount: 0,
 	},
 	{
+		id: 5,
 		name: "Body Protection",
 		image: ImagesConstant.skinCareBlackWhite2,
 		category: "treatments",
@@ -107,6 +113,7 @@ const PRODUCT_LIST_CONSTANT: ProductInterface[] = [
 		discount: 0,
 	},
 	{
+		id: 6,
 		name: "All In One Gel",
 		image: ImagesConstant.skinCareBlackWhiteHd1,
 		category: "featured",
@@ -115,6 +122,7 @@ const PRODUCT_LIST_CONSTANT: ProductInterface[] = [
 		discount: 0,
 	},
 	{
+		id: 7,
 		name: "Deep Treatment",
 		image: ImagesConstant.skinCarePurple0,
 		category: "onsale",
@@ -125,6 +133,8 @@ const PRODUCT_LIST_CONSTANT: ProductInterface[] = [
 ];
 
 function App() {
+	const addCart = useAddCart();
+
 	return (
 		<MainLayout title="Home Page">
 			<Box
@@ -187,7 +197,11 @@ function App() {
 							gap: "4rem",
 						}}>
 						{PRODUCT_LIST_CONSTANT.map((product, key) => (
-							<ProductCard key={key} {...product} />
+							<ProductCard
+								key={key}
+								product={product}
+								onAddToCart={(item) => addCart(item)}
+							/>
 						))}
 					</Flex>
 

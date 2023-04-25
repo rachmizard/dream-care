@@ -3,10 +3,10 @@ import { ChevronRightIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { IoCartOutline, IoPerson, IoSearch } from "react-icons/io5";
 
 import {
-	Typography,
-	CartDropdown,
 	CardDropdownProductImageWrapper,
+	CartDropdown,
 	Flex,
+	Typography,
 } from "@/components";
 import {
 	NavbarBrand,
@@ -19,11 +19,16 @@ import {
 	NavbarMenuLink,
 } from "./navbar.styled";
 
+import { useGetCarts, useGetIsCartEmpty, useRemoveCart } from "@/hooks";
+
 import { keyframes, styled } from "@/stitches.config";
-import { ImagesConstant } from "@/constants/images.constant";
 import { toUSDCurrency } from "@/utils";
 
 export const Navbar = () => {
+	const isCartEmpty = useGetIsCartEmpty();
+	const carts = useGetCarts();
+	const removeCart = useRemoveCart();
+
 	return (
 		<NavbarContainer>
 			<NavbarBrand>
@@ -50,67 +55,11 @@ export const Navbar = () => {
 
 						<NavbarDropdownSection data-navbar-dropdown-section>
 							<CartDropdown
-								carts={[
-									{
-										category: "eyecare",
-										image: ImagesConstant.skinCareBlackWhite2,
-										discount: 0,
-										price: 20,
-										name: "Product 1",
-									},
-									{
-										category: "mask",
-										image: ImagesConstant.skinCareBlackWhiteHd1,
-										discount: 0,
-										price: 20,
-										name: "Product 2",
-									},
-									{
-										category: "mask",
-										image: ImagesConstant.skinCareBlackWhiteHd1,
-										discount: 0,
-										price: 20,
-										name: "Product 2",
-									},
-									{
-										category: "mask",
-										image: ImagesConstant.skinCareBlackWhiteHd1,
-										discount: 0,
-										price: 20,
-										name: "Product 2",
-									},
-									{
-										category: "mask",
-										image: ImagesConstant.skinCareBlackWhiteHd1,
-										discount: 0,
-										price: 20,
-										name: "Product 2",
-									},
-									{
-										category: "mask",
-										image: ImagesConstant.skinCareBlackWhiteHd1,
-										discount: 0,
-										price: 20,
-										name: "Product 2",
-									},
-									{
-										category: "mask",
-										image: ImagesConstant.skinCareBlackWhiteHd1,
-										discount: 0,
-										price: 20,
-										name: "Product 2",
-									},
-									{
-										category: "mask",
-										image: ImagesConstant.skinCareBlackWhiteHd1,
-										discount: 0,
-										price: 20,
-										name: "Product 2",
-									},
-								]}
-								onRemoveCart={(index) => alert(index)}
-								renderItem={(cart) => (
+								carts={carts || []}
+								onRemoveCart={(index) => removeCart(index)}
+								renderItem={(cart, index) => (
 									<Flex
+										key={index}
 										css={{
 											alignItems: "center",
 											gap: "$4",
@@ -146,7 +95,7 @@ export const Navbar = () => {
 								)}
 							/>
 						</NavbarDropdownSection>
-						<CartDot data-cart-dot />
+						{!isCartEmpty && <CartDot data-cart-dot />}
 					</NavbarMenuItem>
 				</NavbarDropdownArea>
 				<NavbarMenuItem>
