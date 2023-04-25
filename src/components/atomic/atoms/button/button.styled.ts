@@ -47,10 +47,10 @@ export const StyledButton = styled(BaseButton, {
 			outlined: true,
 			css: {
 				backgroundColor: "transparent",
-				boxShadow: "0 0 0 1px $$backgroundColor",
 				color: "$$backgroundColor",
 				"&:hover": {
 					backgroundColor: "$$backgroundColor",
+					outline: "none",
 					color: "$$color",
 				},
 			},
@@ -58,7 +58,9 @@ export const StyledButton = styled(BaseButton, {
 	],
 	variants: {
 		outlined: {
-			true: {},
+			true: {
+				outline: "1px solid $$backgroundColor",
+			},
 		},
 		fullWidth: {
 			true: {
