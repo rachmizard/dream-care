@@ -2,17 +2,26 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { ChevronRightIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { IoCartOutline, IoPerson, IoSearch } from "react-icons/io5";
 
-import { Typography } from "@/components/atomic/atoms";
+import {
+	Typography,
+	CartDropdown,
+	CardDropdownProductImageWrapper,
+	Flex,
+} from "@/components";
 import {
 	NavbarBrand,
 	NavbarContainer,
+	NavbarDropdownArea,
 	NavbarDropdownIconButton,
+	NavbarDropdownSection,
 	NavbarMenu,
 	NavbarMenuItem,
 	NavbarMenuLink,
 } from "./navbar.styled";
 
 import { keyframes, styled } from "@/stitches.config";
+import { ImagesConstant } from "@/constants/images.constant";
+import { toUSDCurrency } from "@/utils";
 
 export const Navbar = () => {
 	return (
@@ -33,13 +42,113 @@ export const Navbar = () => {
 						<IoSearch size={24} />
 					</NavbarMenuLink>
 				</NavbarMenuItem>
-				<NavbarMenuItem>
-					<NavbarMenuLink>
-						<IoCartOutline size={24} />
-					</NavbarMenuLink>
+				<NavbarDropdownArea>
+					<NavbarMenuItem>
+						<NavbarMenuLink data-navbar-menu-link>
+							<IoCartOutline size={24} />
+						</NavbarMenuLink>
 
-					<CartDot data-cart-dot />
-				</NavbarMenuItem>
+						<NavbarDropdownSection data-navbar-dropdown-section>
+							<CartDropdown
+								carts={[
+									{
+										category: "eyecare",
+										image: ImagesConstant.skinCareBlackWhite2,
+										discount: 0,
+										price: 20,
+										name: "Product 1",
+									},
+									{
+										category: "mask",
+										image: ImagesConstant.skinCareBlackWhiteHd1,
+										discount: 0,
+										price: 20,
+										name: "Product 2",
+									},
+									{
+										category: "mask",
+										image: ImagesConstant.skinCareBlackWhiteHd1,
+										discount: 0,
+										price: 20,
+										name: "Product 2",
+									},
+									{
+										category: "mask",
+										image: ImagesConstant.skinCareBlackWhiteHd1,
+										discount: 0,
+										price: 20,
+										name: "Product 2",
+									},
+									{
+										category: "mask",
+										image: ImagesConstant.skinCareBlackWhiteHd1,
+										discount: 0,
+										price: 20,
+										name: "Product 2",
+									},
+									{
+										category: "mask",
+										image: ImagesConstant.skinCareBlackWhiteHd1,
+										discount: 0,
+										price: 20,
+										name: "Product 2",
+									},
+									{
+										category: "mask",
+										image: ImagesConstant.skinCareBlackWhiteHd1,
+										discount: 0,
+										price: 20,
+										name: "Product 2",
+									},
+									{
+										category: "mask",
+										image: ImagesConstant.skinCareBlackWhiteHd1,
+										discount: 0,
+										price: 20,
+										name: "Product 2",
+									},
+								]}
+								onRemoveCart={(index) => alert(index)}
+								renderItem={(cart) => (
+									<Flex
+										css={{
+											alignItems: "center",
+											gap: "$4",
+										}}>
+										<CardDropdownProductImageWrapper>
+											<img
+												src={cart.image}
+												alt={cart.name}
+											/>
+										</CardDropdownProductImageWrapper>
+										<Flex
+											css={{
+												flexDirection: "column",
+												gap: "$2",
+											}}>
+											<Typography.Heading
+												css={{
+													fontWeight: "$normal",
+												}}
+												level="5">
+												{cart.name}
+											</Typography.Heading>
+
+											<Typography.Heading
+												css={{
+													fontWeight: "$normal",
+												}}
+												level="5">
+												{toUSDCurrency(cart.price)}
+											</Typography.Heading>
+										</Flex>
+									</Flex>
+								)}
+							/>
+						</NavbarDropdownSection>
+						<CartDot data-cart-dot />
+					</NavbarMenuItem>
+				</NavbarDropdownArea>
 				<NavbarMenuItem>
 					<NavbarMenuLink>
 						<IoPerson size={24} />
@@ -208,8 +317,8 @@ const RightSlot = styled("div", {
 
 const CartDot = styled("span", {
 	position: "absolute",
-	top: 0,
-	right: 0,
+	top: 6,
+	right: 7,
 	width: 10,
 	height: 10,
 	borderRadius: "50%",
