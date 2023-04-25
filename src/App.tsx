@@ -18,12 +18,8 @@ import {
 	Flex,
 	Space,
 	Typography,
-} from "./components/atomic/atoms";
-
-import {
 	AboutCard,
 	CategoryIcon,
-	FooterSection,
 	HeroSection,
 	MainLayout,
 	NewsletterInputSection,
@@ -146,11 +142,7 @@ function App() {
 				direction="vertical"
 				align="start"
 				size="lg">
-				<SectionWrapper
-					alignCenter={{
-						"@initial": true,
-						"@bp3": false,
-					}}>
+				<SectionWrapper>
 					<Typography.Heading
 						css={{
 							color: "$primaryDark",
@@ -178,11 +170,7 @@ function App() {
 					</Space>
 				</SectionWrapper>
 
-				<SectionWrapper
-					alignCenter={{
-						"@initial": true,
-						"@bp3": false,
-					}}>
+				<SectionWrapper>
 					<Typography.Heading
 						level={{
 							"@initial": 3,
@@ -203,18 +191,14 @@ function App() {
 						))}
 					</Flex>
 
-					<Box
+					<Flex
 						css={{
-							width: "100%",
-
-							"@bp3": {
-								width: "auto",
-							},
+							alignSelf: "center",
 						}}>
-						<Button rounded size="xl" fullWidth>
+						<Button rounded size="xl">
 							View All
 						</Button>
-					</Box>
+					</Flex>
 				</SectionWrapper>
 
 				<SectionWrapper alignCenter>
