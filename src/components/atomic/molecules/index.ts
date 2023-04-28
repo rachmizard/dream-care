@@ -1,3 +1,4 @@
+export { BreadCrumb } from "./breadcrumb";
 export { AboutCard } from "./card/about";
 export { CategoryIcon } from "./card/category-icon";
 export { ProductCard } from "./card/product";
