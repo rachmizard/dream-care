@@ -1,4 +1,5 @@
 import { styled } from "@/stitches.config";
+import { NavLink } from "react-router-dom";
 
 export const NavbarContainer = styled("nav", {
 	display: "flex",
@@ -60,7 +61,7 @@ export const NavbarMenuItem = styled("li", {
 	},
 });
 
-export const NavbarMenuLink = styled("a", {
+export const NavbarMenuLink = styled(NavLink, {
 	transition: "all 0.1s ease-in-out",
 
 	display: "inline-block",
@@ -71,6 +72,8 @@ export const NavbarMenuLink = styled("a", {
 	cursor: "pointer",
 
 	textDecoration: "none",
+
+	color: "$gray500",
 
 	"&:hover": {
 		color: "$primary",
@@ -84,15 +87,12 @@ export const NavbarMenuLink = styled("a", {
 		color: "$primary",
 	},
 
-	"&:visited": {
-		color: "$primary",
-	},
-
-	"&:link": {
-		color: "$primary",
-	},
-
 	"&:disabled": {
+		color: "$primary",
+	},
+
+	// check if the link is active with the current route
+	"&.active": {
 		color: "$primary",
 	},
 });

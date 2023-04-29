@@ -8,11 +8,12 @@ import { styled } from "@/stitches.config";
 
 interface ProductCardProps {
 	onAddToCart?: (product: ProductInterface) => void;
+	onViewDetail?: (product: ProductInterface) => void;
 	product: ProductInterface;
 }
 
 export const ProductCard: FC<ProductCardProps> = (props) => {
-	const { product, onAddToCart } = props;
+	const { product, onAddToCart, onViewDetail } = props;
 	const [isAddedToCart, setIsAddedToCart] = useState(false);
 
 	const { category, discount = 0, image, name, price } = product;
@@ -30,7 +31,9 @@ export const ProductCard: FC<ProductCardProps> = (props) => {
 
 	return (
 		<ProductCardWrapper>
-			<ProductCardView data-card-view>
+			<ProductCardView
+				data-card-view
+				onClick={() => onViewDetail && onViewDetail(product)}>
 				{isDiscounted && (
 					<ProductCardBadge
 						colorScheme="danger"
@@ -47,7 +50,11 @@ export const ProductCard: FC<ProductCardProps> = (props) => {
 					size="lg"
 					color="primary"
 					loading={isAddedToCart}
-					onClick={() => {
+					onClick={(e) => {
+						// Prevent event bubbling
+						e.preventDefault();
+						e.stopPropagation();
+
 						if (onAddToCart) {
 							setIsAddedToCart(true);
 							onAddToCart(product);
@@ -59,8 +66,11 @@ export const ProductCard: FC<ProductCardProps> = (props) => {
 
 			<Typography.Heading
 				level={4}
+				role="link"
+				onClick={() => onViewDetail && onViewDetail(product)}
 				css={{
 					fontWeight: "$semibold",
+					cursor: "pointer",
 				}}>
 				{name}
 			</Typography.Heading>
@@ -146,6 +156,9 @@ const ProductCardView = styled("div", {
 	minHeight: "16rem",
 	backgroundColor: "$gray200",
 	br: "$5xl",
+
+	cursor: "pointer",
+
 	// overflow: "hidden",
 });
 

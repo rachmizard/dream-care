@@ -23,10 +23,20 @@ interface CartDropdownProps {
 		index: number
 	) => JSX.Element;
 	onRemoveCart?: (index: number) => void;
+	onCheckout?: () => void;
+	onEditCart?: () => void;
+	hideEditCartButton?: boolean;
 }
 
 export const CartDropdown: FC<CartDropdownProps> = (props) => {
-	const { carts = [], renderItem, onRemoveCart } = props;
+	const {
+		carts = [],
+		renderItem,
+		onRemoveCart,
+		onCheckout,
+		onEditCart,
+		hideEditCartButton,
+	} = props;
 	const isCartEmpty = carts.length === 0;
 
 	const viewPortHeight = isCartEmpty ? 0 : 300;
@@ -71,26 +81,30 @@ export const CartDropdown: FC<CartDropdownProps> = (props) => {
 							boxShadow: "none",
 						}}
 						size="lg"
-						rounded>
+						rounded
+						onClick={onCheckout}>
 						Checkout
 					</Button>
 				</Box>
 
-				<Box
-					css={{
-						flexShrink: 0,
-					}}>
-					<Button
+				{!hideEditCartButton && (
+					<Box
 						css={{
-							boxShadow: "none",
-						}}
-						size="lg"
-						rounded
-						outlined
-						color="secondary">
-						Edit Cart
-					</Button>
-				</Box>
+							flexShrink: 0,
+						}}>
+						<Button
+							css={{
+								boxShadow: "none",
+							}}
+							size="lg"
+							rounded
+							outlined
+							color="secondary"
+							onClick={onEditCart}>
+							Edit Cart
+						</Button>
+					</Box>
+				)}
 			</CartDropdownActions>
 		</CartDropdownContainer>
 	);

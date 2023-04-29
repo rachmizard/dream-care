@@ -1,3 +1,4 @@
+import { Link as ReactRouterLink } from "react-router-dom";
 import { styled } from "@/stitches.config";
 
 export const Text = styled("p", {
@@ -47,9 +48,10 @@ export const Heading = styled("h1", {
 	},
 });
 
-export const Link = styled("a", {
+export const Link = styled(ReactRouterLink, {
 	fontSize: "$md",
 	color: "$gray",
+	textDecoration: "none",
 	defaultVariants: {
 		fontSize: "md",
 	},

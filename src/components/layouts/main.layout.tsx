@@ -1,15 +1,18 @@
 import { FC, PropsWithChildren } from "react";
 import { Helmet } from "react-helmet";
 
-import { Container, Navbar, FooterSection } from "@/components";
+import { Container, FooterSection, Navbar } from "@/components";
+import { ScrollRestoration } from "react-router-dom";
 
 interface MainLayoutProps {
 	title?: string;
+	shouldScrollRestoration?: boolean;
 }
 
 export const MainLayout: FC<PropsWithChildren<MainLayoutProps>> = ({
 	children,
 	title,
+	shouldScrollRestoration,
 }) => {
 	return (
 		<Container
@@ -29,10 +32,16 @@ export const MainLayout: FC<PropsWithChildren<MainLayoutProps>> = ({
 
 			<Navbar />
 
-			{children}
+			<div
+				style={{
+					minHeight: "calc(100vh - 100px)",
+				}}>
+				{children}
+			</div>
 
 			<FooterSection />
+
+			{shouldScrollRestoration && <ScrollRestoration />}
 		</Container>
 	);
 };
-``;

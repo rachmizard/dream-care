@@ -1,6 +1,12 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { ChevronRightIcon, HamburgerMenuIcon } from "@radix-ui/react-icons";
 import { IoCartOutline, IoPerson, IoSearch } from "react-icons/io5";
+import {
+	useHref,
+	useLocation,
+	useNavigate,
+	useNavigation,
+} from "react-router-dom";
 
 import {
 	CardDropdownProductImageWrapper,
@@ -23,40 +29,51 @@ import { useGetCarts, useGetIsCartEmpty, useRemoveCart } from "@/hooks";
 
 import { keyframes, styled } from "@/stitches.config";
 import { toUSDCurrency } from "@/utils";
+import { ROUTES_CONSTANT } from "@/constants/routes.constant";
 
 export const Navbar = () => {
 	const isCartEmpty = useGetIsCartEmpty();
 	const carts = useGetCarts();
 	const removeCart = useRemoveCart();
 
+	const navigate = useNavigate();
+	const location = useLocation();
+
+	const hideEditCartButton = location.pathname === ROUTES_CONSTANT.CART;
+
 	return (
 		<NavbarContainer>
 			<NavbarBrand>
-				<Typography.Heading
-					level="2"
+				<Typography.Link
+					to={ROUTES_CONSTANT.HOME}
 					css={{
 						color: "$primary",
+						fontSize: "$3xl",
 					}}>
 					DreamCare
-				</Typography.Heading>
+				</Typography.Link>
 			</NavbarBrand>
 
 			<NavbarMenu>
 				<NavbarMenuItem>
-					<NavbarMenuLink>
+					<NavbarMenuLink to="/search">
 						<IoSearch size={24} />
 					</NavbarMenuLink>
 				</NavbarMenuItem>
 				<NavbarDropdownArea>
 					<NavbarMenuItem>
-						<NavbarMenuLink data-navbar-menu-link>
+						<NavbarMenuLink to="/carts" data-navbar-menu-link>
 							<IoCartOutline size={24} />
 						</NavbarMenuLink>
 
 						<NavbarDropdownSection data-navbar-dropdown-section>
 							<CartDropdown
 								carts={carts || []}
+								hideEditCartButton={hideEditCartButton}
 								onRemoveCart={(index) => removeCart(index)}
+								onEditCart={() =>
+									navigate(ROUTES_CONSTANT.CART)
+								}
 								renderItem={(cart, index) => (
 									<Flex
 										key={index}
@@ -99,7 +116,7 @@ export const Navbar = () => {
 					</NavbarMenuItem>
 				</NavbarDropdownArea>
 				<NavbarMenuItem>
-					<NavbarMenuLink>
+					<NavbarMenuLink to="/auth">
 						<IoPerson size={24} />
 					</NavbarMenuLink>
 				</NavbarMenuItem>
